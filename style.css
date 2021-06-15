@@ -1,0 +1,233 @@
+@font-face {
+ font-family: "Heavitas";
+ src: url("assets/fonts/Heavitas.ttf") format("truetype");
+}
+body{
+ overflow-x: hidden;
+ display: flex;
+ margin: 0;
+ --activeColor: #FF4400;
+}
+*{
+ font-family: 'Roboto';
+ font-weight: normal;
+}
+:root{
+ --activeColor: transparent
+}
+.content{
+ width: 70%;
+ padding: 10% 0 7% 10%;
+ opacity: 0;
+ transform: translateY(-10%);
+}
+.contentTransition{
+ transition: all 0.8s cubic-bezier(.04,.62,.34,1.01);
+}
+.content.ready{
+ opacity: 1;
+ transform: translateY(0);
+}
+body .content.disappear{
+ opacity: 0;
+ transform: translateY(10%);
+}
+.content .title{
+ width: 80%;
+ position: relative;
+}
+.content .title span{
+ font-family: 'Heavitas';
+ font-size: 50px;
+}
+.underline {
+ /* I don't know why this is needed, I just added it and it worked in IE Edge. If we remove this width, the gradient breaks in IE Edge */
+ width: calc(100%);
+ background-image: linear-gradient(transparent calc(100% - 20px), var(--activeColor) 10px);
+ background-repeat: no-repeat;
+ background-size: 0% 100%;
+}
+.content .title span.active{
+ transition: background-size 1s 0.9s;
+ background-size: 100% 100%;
+}
+.content .description{
+ font-size: 18px;
+ width: 90%;
+ font-weight: 100;
+}
+.content .info-grid{
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+}
+.content .info-grid .grid-component h3{
+ font-weight: bold;
+}
+.bg{
+ transition: background 0.4s ease-in-out 1.5s;
+ content: "";
+ width: 40%;
+ height: 100%;
+ top: 0;
+ left: 50%;
+ transform: translateX(-50%);
+ position: absolute;
+ z-index: -1;
+ background-color: var(--activeColor);
+}
+.container {
+ width: 30%;
+ height: 100vh;
+}
+.wrapper{
+ overflow: hidden;
+ position: relative;
+}
+/* navigation */
+.nav{
+ z-index: 999;
+}
+.backgroundStripes{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.backgroundStripes>span{
+  display: block;
+  width: 100%;
+  height: calc(100% / 6);
+  background-color: var(--activeColor);
+  transform: translateX(-100%);
+  opacity: 0;
+}
+.navScreen.active .backgroundStripes>span{
+  animation-name: stripeLeft;
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(.98,-0.04,.04,.98);
+  animation-fill-mode: forwards;
+  opacity: 1;
+  transition: opacity .6s 0.5s;
+}
+.backgroundStripes>span:nth-child(2){
+  animation-delay: .6s;
+}
+.backgroundStripes>span:nth-child(3){
+  animation-delay: .45s;
+}
+.backgroundStripes>span:nth-child(4){
+  animation-delay: .75s;
+}
+.backgroundStripes>span:nth-child(5){
+  animation-delay: .15s;
+}
+.backgroundStripes>span:nth-child(6){
+  animation-delay: .3s;
+}
+@keyframes stripeLeft {
+  from{
+    transform: translateX(-100%);
+  }
+  to{
+    transform: translateX(0);
+  }
+}
+.navScreen{
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: -100%;
+}
+.navScreen.active{
+  left: 0;
+}
+.toggle{
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  background: none;
+  border: none;
+  left: 50px;
+  top: 50px;
+  cursor: pointer;
+  z-index: 999;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 50px;
+}
+.toggle:focus{
+  outline: none;
+}
+.toggle>span{
+  width: 30px;
+  height: 3px;
+  background-color: #2c2c2c;
+  display: block;
+  position: relative;
+  transition: 0.15s;
+}
+.toggle>span::before, .toggle>span::after{
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: #2c2c2c;
+  display: block;
+  position: absolute;
+  transition: 0.2s;
+}
+.toggle>span::before{
+  width: 130%;
+  left: 0;
+  bottom: 12px;
+}
+.toggle>span::after{
+  top: 12px;
+  left: 0;
+}
+.toggle.active>span{
+  background: none;
+}
+.toggle.active>span::before, .toggle.active>span::after{
+  width: 120%;
+  transform-origin: center;
+  transform: rotate(45deg);
+  top: 0;
+}
+.toggle.active>span::after{
+  transform: rotate(-45deg);
+}
+.image_arnaque{
+  width: 100vw;
+  margin-top: 150px;
+}
+.nav ul{
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  font-size: 3rem;
+  color: black;
+  transform: translateY(-50%);
+  list-style: none;
+  text-transform: uppercase;
+}
+.nav ul li{
+  margin: 40px 0;
+}
+.nav ul a{
+  text-decoration: none;
+  color: black;
+  font-weight: 800;
+}
+.produits{
+  width: 100vw;
+  height: calc(100vh - 150px);
+  margin-top: 150px;
+}
+.produits iframe{
+  height: 100%;
+  width: 100%;
+}
